@@ -42,7 +42,7 @@ public class BranchesController {
 
 	}
 
-	@DeleteMapping({ "/id" })
+	@DeleteMapping("/{id}")
 	public ResponseEntity<ResponseStructure<String>> deleteBranchesById(@PathVariable int id) {
 		return branchesService.deleteBranchesById(id);
 

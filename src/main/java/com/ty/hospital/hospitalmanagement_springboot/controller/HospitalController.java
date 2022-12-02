@@ -42,7 +42,7 @@ public class HospitalController {
 
 	}
 
-	@DeleteMapping({ "/id" })
+	@DeleteMapping("/{id}")
 	public ResponseEntity<ResponseStructure<String>> deleteHospitalById(@PathVariable int id) {
 		return hospitalService.deleteHospitalById(id);
 
