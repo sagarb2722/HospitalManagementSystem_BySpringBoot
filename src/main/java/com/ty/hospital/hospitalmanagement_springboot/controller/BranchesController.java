@@ -19,33 +19,33 @@ import com.ty.hospital.hospitalmanagement_springboot.util.ResponseStructure;
 @RestController
 @RequestMapping("branches")
 public class BranchesController {
-	
 
 	@Autowired
 	BranchesService branchesService;
-	
+
 	@PostMapping
-	public ResponseEntity< ResponseStructure<Branches>> saveBranches(@RequestBody Branches branches) {
+	public ResponseEntity<ResponseStructure<Branches>> saveBranches(@RequestBody Branches branches) {
 		return branchesService.saveBranches(branches);
-		
+
 	}
+
 	@PutMapping
-	public ResponseEntity< ResponseStructure<Branches>> updateBranches(@RequestBody Branches branches,@RequestParam int id) {
-		return branchesService.updateBranches(branches,id);
-		
+	public ResponseEntity<ResponseStructure<Branches>> updateBranches(@RequestBody Branches branches,
+			@RequestParam int id) {
+		return branchesService.updateBranches(branches, id);
+
 	}
 
-@GetMapping
-	public ResponseEntity< ResponseStructure<Branches>> getBranchesById(@RequestParam int id) {
+	@GetMapping
+	public ResponseEntity<ResponseStructure<Branches>> getBranchesById(@RequestParam int id) {
 		return branchesService.getBranchesById(id);
-		
+
 	}
 
-@DeleteMapping({"/id"})
-	public ResponseEntity< ResponseStructure<String>> deleteBranchesById(@PathVariable int id) {
+	@DeleteMapping({ "/id" })
+	public ResponseEntity<ResponseStructure<String>> deleteBranchesById(@PathVariable int id) {
 		return branchesService.deleteBranchesById(id);
-		
-	}
 
+	}
 
 }

@@ -16,41 +16,36 @@ import com.ty.hospital.hospitalmanagement_springboot.dto.Hospital;
 import com.ty.hospital.hospitalmanagement_springboot.service.HospitalService;
 import com.ty.hospital.hospitalmanagement_springboot.util.ResponseStructure;
 
-
-
 @RestController
 @RequestMapping("hospital")
 public class HospitalController {
-
 
 	@Autowired
 	HospitalService hospitalService;
 
 	@PostMapping
-	public ResponseEntity< ResponseStructure<Hospital>> saveHospital(@RequestBody Hospital hospital) {
+	public ResponseEntity<ResponseStructure<Hospital>> saveHospital(@RequestBody Hospital hospital) {
 		return hospitalService.saveHospital(hospital);
 
 	}
+
 	@PutMapping
-	public ResponseEntity< ResponseStructure<Hospital>> updateHospital(@RequestBody Hospital hospital,@RequestParam int id) {
-		return hospitalService.updateHospital(hospital,id);
+	public ResponseEntity<ResponseStructure<Hospital>> updateHospital(@RequestBody Hospital hospital,
+			@RequestParam int id) {
+		return hospitalService.updateHospital(hospital, id);
 
 	}
 
 	@GetMapping
-	public ResponseEntity< ResponseStructure<Hospital>> getHospitalById(@RequestParam int id) {
+	public ResponseEntity<ResponseStructure<Hospital>> getHospitalById(@RequestParam int id) {
 		return hospitalService.getHospitalById(id);
 
 	}
 
-	@DeleteMapping({"/id"})
-	public ResponseEntity< ResponseStructure<String>> deleteHospitalById(@PathVariable int id) {
+	@DeleteMapping({ "/id" })
+	public ResponseEntity<ResponseStructure<String>> deleteHospitalById(@PathVariable int id) {
 		return hospitalService.deleteHospitalById(id);
 
 	}
 
-
 }
-
-
-
