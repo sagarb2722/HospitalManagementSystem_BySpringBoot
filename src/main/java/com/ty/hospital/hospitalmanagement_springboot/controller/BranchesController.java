@@ -12,34 +12,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ty.hospital.hospitalmanagement_springboot.dto.Person;
-import com.ty.hospital.hospitalmanagement_springboot.service.PersonService;
+import com.ty.hospital.hospitalmanagement_springboot.dto.Branches;
+import com.ty.hospital.hospitalmanagement_springboot.service.BranchesService;
 import com.ty.hospital.hospitalmanagement_springboot.util.ResponseStructure;
 
 @RestController
-@RequestMapping("person")
-public class PersonController {
+@RequestMapping("branches")
+public class BranchesController {
+
 	@Autowired
-	private PersonService personService;
+	BranchesService branchesService;
 
 	@PostMapping
-	public ResponseEntity<ResponseStructure<Person>> savePerson(@RequestBody Person person) {
-		return personService.savePerson(person);
+	public ResponseEntity<ResponseStructure<Branches>> saveBranches(@RequestBody Branches branches) {
+		return branchesService.saveBranches(branches);
+
 	}
 
 	@PutMapping
-	public ResponseEntity<ResponseStructure<Person>> updatePerson(@RequestBody Person person, @RequestParam int id) {
-		return personService.updatePerson(person, id);
+	public ResponseEntity<ResponseStructure<Branches>> updateBranches(@RequestBody Branches branches,
+			@RequestParam int id) {
+		return branchesService.updateBranches(branches, id);
+
 	}
 
 	@GetMapping
-	public ResponseEntity<ResponseStructure<Person>> getPersonById(@RequestParam int id) {
-		return personService.getPersonById(id);
+	public ResponseEntity<ResponseStructure<Branches>> getBranchesById(@RequestParam int id) {
+		return branchesService.getBranchesById(id);
 
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ResponseStructure<String>> deletePersonById(@PathVariable int id) {
-		return personService.deletePersonById(id);
+	public ResponseEntity<ResponseStructure<String>> deleteBranchesById(@PathVariable int id) {
+		return branchesService.deleteBranchesById(id);
+
 	}
+
 }

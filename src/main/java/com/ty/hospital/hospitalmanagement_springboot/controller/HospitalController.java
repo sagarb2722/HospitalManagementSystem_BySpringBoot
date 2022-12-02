@@ -12,34 +12,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ty.hospital.hospitalmanagement_springboot.dto.Person;
-import com.ty.hospital.hospitalmanagement_springboot.service.PersonService;
+import com.ty.hospital.hospitalmanagement_springboot.dto.Hospital;
+import com.ty.hospital.hospitalmanagement_springboot.service.HospitalService;
 import com.ty.hospital.hospitalmanagement_springboot.util.ResponseStructure;
 
 @RestController
-@RequestMapping("person")
-public class PersonController {
+@RequestMapping("hospital")
+public class HospitalController {
+
 	@Autowired
-	private PersonService personService;
+	HospitalService hospitalService;
 
 	@PostMapping
-	public ResponseEntity<ResponseStructure<Person>> savePerson(@RequestBody Person person) {
-		return personService.savePerson(person);
+	public ResponseEntity<ResponseStructure<Hospital>> saveHospital(@RequestBody Hospital hospital) {
+		return hospitalService.saveHospital(hospital);
+
 	}
 
 	@PutMapping
-	public ResponseEntity<ResponseStructure<Person>> updatePerson(@RequestBody Person person, @RequestParam int id) {
-		return personService.updatePerson(person, id);
+	public ResponseEntity<ResponseStructure<Hospital>> updateHospital(@RequestBody Hospital hospital,
+			@RequestParam int id) {
+		return hospitalService.updateHospital(hospital, id);
+
 	}
 
 	@GetMapping
-	public ResponseEntity<ResponseStructure<Person>> getPersonById(@RequestParam int id) {
-		return personService.getPersonById(id);
+	public ResponseEntity<ResponseStructure<Hospital>> getHospitalById(@RequestParam int id) {
+		return hospitalService.getHospitalById(id);
 
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ResponseStructure<String>> deletePersonById(@PathVariable int id) {
-		return personService.deletePersonById(id);
+	public ResponseEntity<ResponseStructure<String>> deleteHospitalById(@PathVariable int id) {
+		return hospitalService.deleteHospitalById(id);
+
 	}
+
 }
