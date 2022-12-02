@@ -6,13 +6,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Items {
+public class Tablets {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private double price;
-	private String quantity;
+	private int quantity;
 	public int getId() {
 		return id;
 	}
@@ -31,14 +31,16 @@ public class Items {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public String getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(String quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	@Override
+	public String toString() {
+		return "Tablets [id=" + id + ", name=" + name + ", price=" + price + ", quantity=" + quantity + "]";
 	}
 	
 	
-	
-
 }

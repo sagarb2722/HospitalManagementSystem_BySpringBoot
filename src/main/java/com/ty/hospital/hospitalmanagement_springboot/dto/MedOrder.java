@@ -15,9 +15,10 @@ public class MedOrder {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String description;
-	
+	private double totalcost;
+
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Items>items;
+	private List<Tablets> items;
 
 	public int getId() {
 		return id;
@@ -35,18 +36,28 @@ public class MedOrder {
 		this.description = description;
 	}
 
-	public List<Items> getItems() {
+	public List<Tablets> getItems() {
 		return items;
 	}
 
-	public void setItems(List<Items> items) {
+	public void setItems(List<Tablets> items) {
 		this.items = items;
+	}
+
+	public double getTotalcost() {
+		return totalcost;
+	}
+
+	public void setTotalcost(double totalcost) {
+		this.totalcost = totalcost;
 	}
 
 	@Override
 	public String toString() {
-		return "MedOrder [id=" + id + ", description=" + description + ", items=" + items + "]";
+		return "MedOrder [id=" + id + ", description=" + description + ", totalcost=" + totalcost + ", items=" + items
+				+ "]";
 	}
+
 	
 
 }
