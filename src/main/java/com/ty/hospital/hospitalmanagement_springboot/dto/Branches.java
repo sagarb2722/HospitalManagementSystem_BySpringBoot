@@ -1,6 +1,5 @@
 package com.ty.hospital.hospitalmanagement_springboot.dto;
 
-import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

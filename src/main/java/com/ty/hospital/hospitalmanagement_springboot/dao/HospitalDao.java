@@ -30,12 +30,12 @@ public class HospitalDao {
 		
 		return null;
 		}
-		public String deleteFoodorderById(int id) {
+		public String deleteHospitalById(int id) {
 			hospitalRepository.deleteById(id);;
 			 return "Deleted";
 		}
 		
-	
+		
 	
 
 }
