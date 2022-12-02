@@ -13,7 +13,15 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String location;
+	@OneToOne(mappedBy = "addresss")
+	private Branches branches;
 	
+	public Branches getBranches() {
+		return branches;
+	}
+	public void setBranches(Branches branches) {
+		this.branches = branches;
+	}
 	public int getId() {
 		return id;
 	}
@@ -26,5 +34,11 @@ public class Address {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", location=" + location + ", branches=" + branches + "]";
+	}
+	
+	
 
 }
