@@ -1,5 +1,7 @@
 package com.ty.hospital.hospitalmanagement_springboot.dao;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +12,7 @@ import com.ty.hospital.hospitalmanagement_springboot.repository.PersonRepository
 public class PersonDao {
 
 	@Autowired
-	PersonRepository repository;
+	private PersonRepository repository;
 
 	public Person savePerson(Person person) {
 		return repository.save(person);
@@ -21,7 +23,14 @@ public class PersonDao {
 	}
 
 	public Person getPersonById(int id) {
-		return repository.findById(id).get();
+		Optional<Person> optional=repository.findById(id);
+		if(optional.isPresent())
+		{
+			return optional.get();
+		}
+		else
+			return null;
+		
 	}
 
 	public String deletePersonById(int id) {

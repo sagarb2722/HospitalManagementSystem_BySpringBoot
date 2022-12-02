@@ -1,5 +1,7 @@
 package com.ty.hospital.hospitalmanagement_springboot.dto;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +13,7 @@ public class Encounter {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String reason;
+	private List<MedOrder> medOrder;
 
 	public int getId() {
 		return id;
@@ -28,9 +31,17 @@ public class Encounter {
 		this.reason = reason;
 	}
 
+	public List<MedOrder> getMedOrder() {
+		return medOrder;
+	}
+
+	public void setMedOrder(List<MedOrder> medOrder) {
+		this.medOrder = medOrder;
+	}
+
 	@Override
 	public String toString() {
-		return "Encounter [id=" + id + ", reason=" + reason + "]";
+		return "Encounter [id=" + id + ", reason=" + reason + ", medOrder=" + medOrder + "]";
 	}
 
 }
