@@ -15,7 +15,7 @@ public class Hospital {
 	private int id;
 	private String name;
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Branches>branches;
+	private List<Branches> branches;
 	public int getId() {
 		return id;
 	}

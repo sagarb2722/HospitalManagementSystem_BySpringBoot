@@ -1,9 +1,11 @@
 package com.ty.hospital.hospitalmanagement_springboot.dto;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 @Entity
 public class Branches {
 	@Id
@@ -12,6 +14,15 @@ public class Branches {
 	private String name;
 	private long phoneno;
 	private String address;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Address addresss;
+	
+	public Address getAddresss() {
+		return addresss;
+	}
+	public void setAddresss(Address addresss) {
+		this.addresss = addresss;
+	}
 	public int getId() {
 		return id;
 	}
