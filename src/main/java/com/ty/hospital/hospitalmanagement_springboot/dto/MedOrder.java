@@ -18,7 +18,7 @@ public class MedOrder {
 	private double totalcost;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Tablets> items;
+	private List<Tablets> tablets;
 
 	public int getId() {
 		return id;
@@ -36,12 +36,12 @@ public class MedOrder {
 		this.description = description;
 	}
 
-	public List<Tablets> getItems() {
-		return items;
+	public List<Tablets> gettablets() {
+		return tablets;
 	}
 
-	public void setItems(List<Tablets> items) {
-		this.items = items;
+	public void settablets(List<Tablets> tablets) {
+		this.tablets = tablets;
 	}
 
 	public double getTotalcost() {
@@ -54,10 +54,8 @@ public class MedOrder {
 
 	@Override
 	public String toString() {
-		return "MedOrder [id=" + id + ", description=" + description + ", totalcost=" + totalcost + ", items=" + items
-				+ "]";
+		return "MedOrder [id=" + id + ", description=" + description + ", totalcost=" + totalcost + ", tablets="
+				+ tablets + "]";
 	}
-
-	
 
 }

@@ -18,14 +18,14 @@ public class MedOrderService {
 	private MedOrderDao medOrderDao;
 
 	public ResponseEntity<ResponseStructure<MedOrder>> saveMedOrder(MedOrder medOrder) {
-		List<Tablets> tablets = medOrder.getItems();
+		List<Tablets> tablets = medOrder.gettablets();
 		double totalcost = 0;
 		for (Tablets tablets2 : tablets) {
 			totalcost = totalcost + (tablets2.getPrice() * tablets2.getQuantity());
 		}
 		totalcost = (totalcost * 0.18) + totalcost;
 		medOrder.setTotalcost(totalcost);
-
+		System.out.println(totalcost);
 		ResponseStructure<MedOrder> responseStructure = new ResponseStructure<>();
 		ResponseEntity<ResponseStructure<MedOrder>> responseEntity = new ResponseEntity<ResponseStructure<MedOrder>>(
 				responseStructure, HttpStatus.CREATED);
@@ -44,7 +44,7 @@ public class MedOrderService {
 
 		if (medOrder2 != null) {
 			medOrder.setId(id);
-			List<Tablets> items = medOrder.getItems();
+			List<Tablets> items = medOrder.gettablets();
 			double totalCost = 0;
 			for (Tablets items2 : items) {
 				totalCost = totalCost + (items2.getPrice() * items2.getQuantity());

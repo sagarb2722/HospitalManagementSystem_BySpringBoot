@@ -13,7 +13,7 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String location;
-	@OneToOne(mappedBy = "addresss")
+	@OneToOne
 	private Branches branches;
 	
 	public Branches getBranches() {
