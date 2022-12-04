@@ -12,9 +12,9 @@ import com.ty.hospital.hospitalmanagement_springboot.util.ResponseStructure;
 @Service
 public class TabletsService {
 	@Autowired
-   private TabletsDao dao;
+	private TabletsDao dao;
 
-	public ResponseEntity<ResponseStructure<Tablets>> saveTablets(Tablets tablets){
+	public ResponseEntity<ResponseStructure<Tablets>> saveTablets(Tablets tablets) {
 		ResponseStructure<Tablets> responseStructure = new ResponseStructure<Tablets>();
 		ResponseEntity<ResponseStructure<Tablets>> responseEntity = new ResponseEntity<ResponseStructure<Tablets>>(
 				responseStructure, HttpStatus.CREATED);
@@ -23,21 +23,23 @@ public class TabletsService {
 		responseStructure.setData(dao.saveTablets(tablets));
 		return responseEntity;
 	}
-	public ResponseEntity<ResponseStructure<Tablets>> updateTablets(Tablets tablets, int id){
-		Tablets tablets2=dao.getTabletsById(id);
-		ResponseStructure<Tablets>responseStructure=new ResponseStructure<Tablets>();
-		ResponseEntity<ResponseStructure<Tablets>> responseEntity= new ResponseEntity<ResponseStructure<Tablets>>(responseStructure,
-				HttpStatus.OK);
-		if(tablets2!=null) {
+
+	public ResponseEntity<ResponseStructure<Tablets>> updateTablets(Tablets tablets, int id) {
+		Tablets tablets2 = dao.getTabletsById(id);
+		ResponseStructure<Tablets> responseStructure = new ResponseStructure<Tablets>();
+		ResponseEntity<ResponseStructure<Tablets>> responseEntity = new ResponseEntity<ResponseStructure<Tablets>>(
+				responseStructure, HttpStatus.OK);
+		if (tablets2 != null) {
+			tablets.setId(id);
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setMessage("updated");
 			responseStructure.setData(dao.updateTablets(tablets));
-		}
-		else {
+		} else {
 			throw null;
-		    }
+		}
 		return responseEntity;
 	}
+
 	public ResponseEntity<ResponseStructure<Tablets>> getTabletsById(int id) {
 		Tablets tablets2 = dao.getTabletsById(id);
 		ResponseStructure<Tablets> responseStructure = new ResponseStructure<>();
@@ -51,6 +53,16 @@ public class TabletsService {
 		} else {
 			throw null;
 		}
+		return responseEntity;
+	}
+	
+	public ResponseEntity<ResponseStructure<String>> deleteTabletsById(int id) {
+		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
+		ResponseEntity<ResponseStructure<String>> responseEntity = new ResponseEntity<ResponseStructure<String>>(
+				responseStructure, HttpStatus.OK);
+		responseStructure.setStatus(HttpStatus.OK.value());
+		responseStructure.setMessage("Deleted");
+		responseStructure.setData(dao.deleteTabletsById(id));
 		return responseEntity;
 	}
 

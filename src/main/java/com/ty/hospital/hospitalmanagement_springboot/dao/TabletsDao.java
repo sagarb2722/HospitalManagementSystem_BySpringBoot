@@ -1,6 +1,5 @@
 package com.ty.hospital.hospitalmanagement_springboot.dao;
 
-
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +10,13 @@ import com.ty.hospital.hospitalmanagement_springboot.repository.TabletsRepositor
 
 @Repository
 public class TabletsDao {
+
 	@Autowired
 	private TabletsRepository tabletsRepository;
-	
-	
+
+	public Tablets saveTablets(Tablets tablets) {
+		return tabletsRepository.save(tablets);
+	}
 
 	public Tablets updateTablets(Tablets tablets) {
 		return tabletsRepository.save(tablets);
@@ -28,8 +30,9 @@ public class TabletsDao {
 		return null;
 	}
 
-	public Tablets saveTablets(Tablets tablets) {
-		return tabletsRepository.save(tablets);
+	public String deleteTabletsById(int id) {
+		tabletsRepository.deleteById(id);
+		return "deleted";
 	}
 
 }
