@@ -6,7 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ty.hospital.hospitalmanagement_springboot.dao.EncounterDao;
+import com.ty.hospital.hospitalmanagement_springboot.dao.PersonDao;
 import com.ty.hospital.hospitalmanagement_springboot.dto.Encounter;
+import com.ty.hospital.hospitalmanagement_springboot.dto.Person;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundException;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToDelete;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToUpdate;
 import com.ty.hospital.hospitalmanagement_springboot.util.ResponseStructure;
 
 @Service
@@ -15,7 +20,8 @@ public class EncounterService {
 	@Autowired
 	private EncounterDao dao;
 	
-	public ResponseEntity<ResponseStructure<Encounter>> saveEncounter(Encounter encounter){
+
+	public ResponseEntity<ResponseStructure<Encounter>> saveEncounter(Encounter encounter) {
 		ResponseStructure<Encounter> responseStructure = new ResponseStructure<Encounter>();
 		ResponseEntity<ResponseStructure<Encounter>> responseEntity;
 		responseStructure.setStatus(HttpStatus.CREATED.value());
@@ -35,7 +41,7 @@ public class EncounterService {
 			responseStructure.setData(dao.updateEncounter(encounter));
 			return responseEntity = new ResponseEntity<ResponseStructure<Encounter>>(responseStructure, HttpStatus.OK);
 		} else
-			return null;
+			throw new NoSuchIdFoundToUpdate();
 	}
 
 	public ResponseEntity<ResponseStructure<Encounter>> getEncounterById(int id) {
@@ -48,15 +54,21 @@ public class EncounterService {
 			responseStructure.setData(dao.getEncounterById(id));
 			return responseEntity = new ResponseEntity<ResponseStructure<Encounter>>(responseStructure, HttpStatus.OK);
 		} else
-			return null;
+			throw new NoSuchIdFoundException();
 	}
-	
-	public ResponseEntity<ResponseStructure<String>> deleteEncounterById(int id){
+
+	public ResponseEntity<ResponseStructure<String>> deleteEncounterById(int id) {
 		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
 		ResponseEntity<ResponseStructure<String>> responseEntity;
-		responseStructure.setStatus(HttpStatus.OK.value());
-		responseStructure.setMessage("Deleted");
-		responseStructure.setData(dao.deleteEncounterById(id));
-		return responseEntity = new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.CREATED);
+		Encounter encounter2 = dao.getEncounterById(id);
+		if (encounter2 != null) {
+			responseStructure.setStatus(HttpStatus.OK.value());
+			responseStructure.setMessage("Deleted");
+			responseStructure.setData(dao.deleteEncounterById(id));
+			return responseEntity = new ResponseEntity<ResponseStructure<String>>(responseStructure,
+					HttpStatus.CREATED);
+		} else {
+			throw new NoSuchIdFoundToDelete();
+		}
 	}
 }

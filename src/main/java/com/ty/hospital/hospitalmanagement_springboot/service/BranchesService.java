@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.ty.hospital.hospitalmanagement_springboot.dao.BranchesDao;
 import com.ty.hospital.hospitalmanagement_springboot.dto.Branches;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundException;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToDelete;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToUpdate;
 import com.ty.hospital.hospitalmanagement_springboot.util.ResponseStructure;
 
 @Service
@@ -21,7 +24,7 @@ public class BranchesService {
 		responseStructure.setStatus(HttpStatus.CREATED.value());
 		responseStructure.setMessage("saved");
 		responseStructure.setData(branchesDao.saveBranches(branches));
-		return null;
+		return new ResponseEntity<ResponseStructure<Branches>>(responseStructure, HttpStatus.CREATED);
 
 	}
 
@@ -37,9 +40,7 @@ public class BranchesService {
 			responseStructure.setData(branchesDao.saveBranches(branches));
 
 		} else {
-			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setMessage("NOT FOUND");
-			responseStructure.setData(null);
+			 throw new NoSuchIdFoundToUpdate();
 
 		}
 		return new ResponseEntity<ResponseStructure<Branches>>(responseStructure, HttpStatus.OK);
@@ -56,8 +57,9 @@ public class BranchesService {
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setMessage("Found");
 			responseStructure.setData(branchesDao.getBranchesById(id));
-			return new ResponseEntity<ResponseStructure<Branches>>(responseStructure, HttpStatus.OK);
 		} else {
+			
+			throw new NoSuchIdFoundException();
 
 		}
 		return new ResponseEntity<ResponseStructure<Branches>>(responseStructure, HttpStatus.OK);
@@ -66,20 +68,21 @@ public class BranchesService {
 
 	public ResponseEntity<ResponseStructure<String>> deleteBranchesById(int id) {
 		ResponseEntity<ResponseStructure<String>> responseEntity;
+		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
 		Branches branches2 = branchesDao.getBranchesById(id);
 
 		if (branches2 != null) {
-		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
+		
 		responseStructure.setStatus(HttpStatus.OK.value());
 		responseStructure.setMessage("Deleted");
 		responseStructure.setData(branchesDao.deleteBranchesById(id));
-		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.OK);
 
 	}
 		else {
 			
+			throw new NoSuchIdFoundToDelete();
 		}
-		return new ResponseEntity<ResponseStructure<String>>(null);
+		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.OK);
 
 	}
 
