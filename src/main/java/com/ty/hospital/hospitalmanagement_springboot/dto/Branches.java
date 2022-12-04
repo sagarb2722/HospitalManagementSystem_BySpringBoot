@@ -51,7 +51,5 @@ public class Branches {
 	public String toString() {
 		return "Branches [id=" + id + ", name=" + name + ", phoneno=" + phoneno + ", address=" + address + "]";
 	}
-	
-	
 
 }

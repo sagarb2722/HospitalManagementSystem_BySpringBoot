@@ -56,12 +56,12 @@ public class PersonService {
 	public ResponseEntity<ResponseStructure<String>> deletePersonById(int id) {
 		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
 		ResponseEntity<ResponseStructure<String>> responseEntity;
-		Person person2=dao.getPersonById(id);
-		if(person2!=null) {
-		responseStructure.setStatus(HttpStatus.OK.value());
-		responseStructure.setMessage("Deleted");
-		responseStructure.setData(dao.deletePersonById(id));
-		return responseEntity = new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.OK);
+		Person person2 = dao.getPersonById(id);
+		if (person2 != null) {
+			responseStructure.setStatus(HttpStatus.OK.value());
+			responseStructure.setMessage("Deleted");
+			responseStructure.setData(dao.deletePersonById(id));
+			return responseEntity = new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.OK);
 		} else
 			throw new NoSuchIdFoundToDelete();
 	}

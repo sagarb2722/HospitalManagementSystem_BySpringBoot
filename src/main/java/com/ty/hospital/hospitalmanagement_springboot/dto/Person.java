@@ -8,15 +8,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@NotNull
 	private String name;
+	@NotNull
 	private long phone;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Encounter> encounter;
 
 	public int getId() {

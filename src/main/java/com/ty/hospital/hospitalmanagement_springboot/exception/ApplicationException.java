@@ -34,6 +34,7 @@ public class ApplicationException{
 		return new ResponseEntity<ResponseStructure<String>>(responseStructure,HttpStatus.NOT_FOUND);
 	}
 	
+	@ExceptionHandler(NoSuchIdFoundToDelete.class)
 	public ResponseEntity<ResponseStructure<String>> noSuchIdFound(NoSuchIdFoundToDelete exception)
 	{
 		ResponseEntity<ResponseStructure<String>> responseEntity;

@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.ty.hospital.hospitalmanagement_springboot.dao.HospitalDao;
 import com.ty.hospital.hospitalmanagement_springboot.dto.Hospital;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundException;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToDelete;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToUpdate;
 import com.ty.hospital.hospitalmanagement_springboot.util.ResponseStructure;
 
 @Service
@@ -23,7 +26,6 @@ public class HospitalService {
 		responseStructure.setMessage("saved");
 		responseStructure.setData(hospitalDao.saveHospital(hospital));
 		return new ResponseEntity<ResponseStructure<Hospital>>(responseStructure, HttpStatus.CREATED);
-	
 
 	}
 
@@ -36,12 +38,11 @@ public class HospitalService {
 			hospital.setId(id);
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setMessage("updated");
-			responseStructure.setData(hospitalDao.saveHospital(hospital));
+			responseStructure.setData(hospitalDao.updateHospital(hospital));
 
 		} else {
-			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setMessage("NOT FOUND");
-			responseStructure.setData(null);
+
+			throw new NoSuchIdFoundToUpdate();
 
 		}
 		return new ResponseEntity<ResponseStructure<Hospital>>(responseStructure, HttpStatus.OK);
@@ -61,8 +62,9 @@ public class HospitalService {
 			return new ResponseEntity<ResponseStructure<Hospital>>(responseStructure, HttpStatus.OK);
 		} else {
 
+			throw new NoSuchIdFoundException();
+
 		}
-		return new ResponseEntity<ResponseStructure<Hospital>>(responseStructure, HttpStatus.OK);
 
 	}
 
@@ -71,17 +73,16 @@ public class HospitalService {
 		Hospital hospital2 = hospitalDao.getHospitalById(id);
 
 		if (hospital2 != null) {
-		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
-		responseStructure.setStatus(HttpStatus.OK.value());
-		responseStructure.setMessage("Deleted");
-		responseStructure.setData(hospitalDao.deleteHospitalById(id));
-		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.OK);
+			ResponseStructure<String> responseStructure = new ResponseStructure<String>();
+			responseStructure.setStatus(HttpStatus.OK.value());
+			responseStructure.setMessage("Deleted");
+			responseStructure.setData(hospitalDao.deleteHospitalById(id));
+			return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.OK);
 
-	}
-else {
-			
+		} else {
+			throw new NoSuchIdFoundToDelete();
+
 		}
-		return new ResponseEntity<ResponseStructure<String>>(null);
 
 	}
 }

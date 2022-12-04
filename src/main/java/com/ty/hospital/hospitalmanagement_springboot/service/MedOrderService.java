@@ -21,6 +21,9 @@ public class MedOrderService {
 	private MedOrderDao medOrderDao;
 
 	public ResponseEntity<ResponseStructure<MedOrder>> saveMedOrder(MedOrder medOrder) {
+		ResponseStructure<MedOrder> responseStructure = new ResponseStructure<>();
+		ResponseEntity<ResponseStructure<MedOrder>> responseEntity = new ResponseEntity<ResponseStructure<MedOrder>>(
+				responseStructure, HttpStatus.CREATED);
 		List<Tablets> tablets = medOrder.gettablets();
 		double totalcost = 0;
 		for (Tablets tablets2 : tablets) {
@@ -28,10 +31,6 @@ public class MedOrderService {
 		}
 		totalcost = (totalcost * 0.18) + totalcost;
 		medOrder.setTotalcost(totalcost);
-		System.out.println(totalcost);
-		ResponseStructure<MedOrder> responseStructure = new ResponseStructure<>();
-		ResponseEntity<ResponseStructure<MedOrder>> responseEntity = new ResponseEntity<ResponseStructure<MedOrder>>(
-				responseStructure, HttpStatus.CREATED);
 		responseStructure.setStatus(HttpStatus.CREATED.value());
 		responseStructure.setMessage("saved");
 		responseStructure.setData(medOrderDao.saveMedOrder(medOrder));
@@ -56,7 +55,7 @@ public class MedOrderService {
 			medOrder.setTotalcost(totalCost);
 
 			responseStructure.setStatus(HttpStatus.CREATED.value());
-			responseStructure.setMessage("saved");
+			responseStructure.setMessage("updated");
 			responseStructure.setData(medOrderDao.saveMedOrder(medOrder));
 		} else {
 
@@ -74,7 +73,7 @@ public class MedOrderService {
 
 		if (medOrder != null) {
 			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setMessage("saved");
+			responseStructure.setMessage("fetch");
 			responseStructure.setData(medOrderDao.getMedOrderById(id));
 		} else {
 			throw new NoSuchIdFoundException();
@@ -91,7 +90,7 @@ public class MedOrderService {
 		MedOrder medOrder = medOrderDao.getMedOrderById(id);
 		if (medOrder != null) {
 			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setMessage("saved");
+			responseStructure.setMessage("deleted");
 			responseStructure.setData(medOrderDao.deleteMedOrderById(id));
 		} else {
 			throw new NoSuchIdFoundToDelete();

@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Address {
@@ -13,15 +14,7 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String location;
-	@OneToOne
-	private Branches branches;
 	
-	public Branches getBranches() {
-		return branches;
-	}
-	public void setBranches(Branches branches) {
-		this.branches = branches;
-	}
 	public int getId() {
 		return id;
 	}
@@ -36,9 +29,7 @@ public class Address {
 	}
 	@Override
 	public String toString() {
-		return "Address [id=" + id + ", location=" + location + ", branches=" + branches + "]";
+		return "Address [id=" + id + ", location=" + location + "]";
 	}
-	
-	
 
 }
