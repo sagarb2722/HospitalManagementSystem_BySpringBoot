@@ -13,6 +13,10 @@ public class EncounterDao {
 	@Autowired
 	private EncounterRepository repository;
 	
+	public Encounter saveEncounter(Encounter encounter) {
+		return repository.save(encounter);
+	}
+	
 	public Encounter updateEncounter(Encounter encounter) {
 		return repository.save(encounter);
 	}
@@ -25,5 +29,10 @@ public class EncounterDao {
 		}
 		else
 			return optional.get();
+	}
+	
+	public String deleteEncounterById(int id) {
+		repository.deleteById(id);;
+		return "deleted";
 	}
 }

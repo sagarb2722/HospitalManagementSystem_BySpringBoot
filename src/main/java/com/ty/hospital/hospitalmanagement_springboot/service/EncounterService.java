@@ -14,6 +14,15 @@ public class EncounterService {
 
 	@Autowired
 	private EncounterDao dao;
+	
+	public ResponseEntity<ResponseStructure<Encounter>> saveEncounter(Encounter encounter){
+		ResponseStructure<Encounter> responseStructure = new ResponseStructure<Encounter>();
+		ResponseEntity<ResponseStructure<Encounter>> responseEntity;
+		responseStructure.setStatus(HttpStatus.CREATED.value());
+		responseStructure.setMessage("Saved");
+		responseStructure.setData(dao.saveEncounter(encounter));
+		return responseEntity = new ResponseEntity<ResponseStructure<Encounter>>(responseStructure, HttpStatus.CREATED);
+	}
 
 	public ResponseEntity<ResponseStructure<Encounter>> updateEncounter(Encounter encounter, int id) {
 		ResponseStructure<Encounter> responseStructure = new ResponseStructure<Encounter>();
@@ -40,5 +49,14 @@ public class EncounterService {
 			return responseEntity = new ResponseEntity<ResponseStructure<Encounter>>(responseStructure, HttpStatus.OK);
 		} else
 			return null;
+	}
+	
+	public ResponseEntity<ResponseStructure<String>> deleteEncounterById(int id){
+		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
+		ResponseEntity<ResponseStructure<String>> responseEntity;
+		responseStructure.setStatus(HttpStatus.OK.value());
+		responseStructure.setMessage("Deleted");
+		responseStructure.setData(dao.deleteEncounterById(id));
+		return responseEntity = new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.CREATED);
 	}
 }
