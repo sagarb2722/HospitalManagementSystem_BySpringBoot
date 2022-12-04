@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.ty.hospital.hospitalmanagement_springboot.dao.MedOrderDao;
 import com.ty.hospital.hospitalmanagement_springboot.dto.Tablets;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundException;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToDelete;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToUpdate;
 import com.ty.hospital.hospitalmanagement_springboot.dto.MedOrder;
 import com.ty.hospital.hospitalmanagement_springboot.util.ResponseStructure;
 
@@ -57,7 +60,7 @@ public class MedOrderService {
 			responseStructure.setData(medOrderDao.saveMedOrder(medOrder));
 		} else {
 
-			return null;
+			throw new NoSuchIdFoundToUpdate();
 		}
 		return responseEntity;
 	}
@@ -74,7 +77,7 @@ public class MedOrderService {
 			responseStructure.setMessage("saved");
 			responseStructure.setData(medOrderDao.getMedOrderById(id));
 		} else {
-			return null;
+			throw new NoSuchIdFoundException();
 		}
 		return responseEntity;
 
@@ -91,7 +94,7 @@ public class MedOrderService {
 			responseStructure.setMessage("saved");
 			responseStructure.setData(medOrderDao.deleteMedOrderById(id));
 		} else {
-			return null;
+			throw new NoSuchIdFoundToDelete();
 		}
 		return responseEntity;
 

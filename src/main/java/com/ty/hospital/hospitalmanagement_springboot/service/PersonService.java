@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.ty.hospital.hospitalmanagement_springboot.dao.PersonDao;
 import com.ty.hospital.hospitalmanagement_springboot.dto.Person;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundException;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToDelete;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToUpdate;
 import com.ty.hospital.hospitalmanagement_springboot.util.ResponseStructure;
 
 @Service
@@ -34,7 +37,7 @@ public class PersonService {
 			responseStructure.setData(dao.updatePerson(person));
 			return responseEntity = new ResponseEntity<ResponseStructure<Person>>(responseStructure, HttpStatus.OK);
 		} else
-			return null;
+			throw new NoSuchIdFoundToUpdate();
 	}
 
 	public ResponseEntity<ResponseStructure<Person>> getPersonById(int id) {
@@ -47,7 +50,7 @@ public class PersonService {
 			responseStructure.setData(dao.getPersonById(id));
 			return responseEntity = new ResponseEntity<ResponseStructure<Person>>(responseStructure, HttpStatus.OK);
 		} else
-			return null;
+			throw new NoSuchIdFoundException();
 	}
 
 	public ResponseEntity<ResponseStructure<String>> deletePersonById(int id) {
@@ -60,7 +63,7 @@ public class PersonService {
 		responseStructure.setData(dao.deletePersonById(id));
 		return responseEntity = new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.OK);
 		} else
-			return null;
+			throw new NoSuchIdFoundToDelete();
 	}
 
 }

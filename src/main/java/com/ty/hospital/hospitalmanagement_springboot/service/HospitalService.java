@@ -22,7 +22,8 @@ public class HospitalService {
 		responseStructure.setStatus(HttpStatus.CREATED.value());
 		responseStructure.setMessage("saved");
 		responseStructure.setData(hospitalDao.saveHospital(hospital));
-		return null;
+		return new ResponseEntity<ResponseStructure<Hospital>>(responseStructure, HttpStatus.CREATED);
+	
 
 	}
 
