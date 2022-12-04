@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.ty.hospital.hospitalmanagement_springboot.dao.TabletsDao;
 import com.ty.hospital.hospitalmanagement_springboot.dto.Tablets;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundException;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToUpdate;
 import com.ty.hospital.hospitalmanagement_springboot.util.ResponseStructure;
 
 @Service
@@ -34,7 +36,7 @@ public class TabletsService {
 			responseStructure.setData(dao.updateTablets(tablets));
 		}
 		else {
-			throw null;
+			throw new NoSuchIdFoundToUpdate();
 		    }
 		return responseEntity;
 	}
@@ -49,7 +51,7 @@ public class TabletsService {
 			responseStructure.setMessage("received");
 			responseStructure.setData(dao.getTabletsById(id));
 		} else {
-			throw null;
+			throw new NoSuchIdFoundException();
 		}
 		return responseEntity;
 	}
