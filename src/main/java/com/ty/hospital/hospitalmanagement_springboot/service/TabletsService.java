@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ty.hospital.hospitalmanagement_springboot.dao.TabletsDao;
 import com.ty.hospital.hospitalmanagement_springboot.dto.Tablets;
 import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundException;
+import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToDelete;
 import com.ty.hospital.hospitalmanagement_springboot.exception.NoSuchIdFoundToUpdate;
 import com.ty.hospital.hospitalmanagement_springboot.util.ResponseStructure;
 
@@ -36,8 +37,9 @@ public class TabletsService {
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setMessage("updated");
 			responseStructure.setData(dao.updateTablets(tablets));
-
 		return responseEntity;
+	}
+	throw new NoSuchIdFoundToUpdate();
 	}
 
 	public ResponseEntity<ResponseStructure<Tablets>> getTabletsById(int id) {
@@ -57,13 +59,19 @@ public class TabletsService {
 	}
 	
 	public ResponseEntity<ResponseStructure<String>> deleteTabletsById(int id) {
+		Tablets tablets2 = dao.getTabletsById(id);
 		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
 		ResponseEntity<ResponseStructure<String>> responseEntity = new ResponseEntity<ResponseStructure<String>>(
 				responseStructure, HttpStatus.OK);
+		if(tablets2!=null) {
 		responseStructure.setStatus(HttpStatus.OK.value());
 		responseStructure.setMessage("Deleted");
 		responseStructure.setData(dao.deleteTabletsById(id));
 		return responseEntity;
+	}
+		else {
+			throw new NoSuchIdFoundToDelete();
+		}
 	}
 
 }
